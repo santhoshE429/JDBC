@@ -1,6 +1,6 @@
 package crud;
 import java.sql.*;
-public class First_step2 {
+public class Insert {
 
 	public static void main(String[] args) {
 		
