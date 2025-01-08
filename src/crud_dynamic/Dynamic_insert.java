@@ -24,7 +24,7 @@ public class Dynamic_insert {
 		System.out.print("Enter Password:");
 		String password=sc.next();
 		System.out.print("Enter phoneNo:");
-		int phoneNo=sc.nextInt();
+		long phoneNo=sc.nextInt();
 		
 		
 		try {
@@ -47,7 +47,7 @@ public class Dynamic_insert {
 			ps.setString(4, gender);
 			ps.setString(5, gmail);
 			ps.setString(6, password);
-			ps.setInt(7, phoneNo);
+			ps.setLong(7, phoneNo);
 			
 			ps.executeUpdate();
 			
