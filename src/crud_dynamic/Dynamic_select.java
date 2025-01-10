@@ -14,19 +14,24 @@ public class Dynamic_select {
 			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			PreparedStatement s=c.prepareStatement("select * from user where id=?");
 			s.setInt(1, id);
-			ResultSet rs=s.executeQuery();
+			ResultSet res=s.executeQuery();
 		
 			
-			while(rs.next())
+			if(res.next())
 			{
-				int id1=rs.getInt("id");
-				String fname=rs.getString("firstName");
-				String lname=rs.getString("lastName");
-				String gender=rs.getString("gender");
-				String gmail=rs.getString("gmail");
-				String pwd=rs.getString("password");
-				int phoneNo=rs.getInt("phoneNo");
-				System.out.println("id :"+id1+"\nfirstName :"+fname+"\nLastName :"+lname+"\ngender :"+gender+"\ngamil :"+gmail+"\npassword :"+pwd+"\nphoneNO :"+phoneNo);
+				
+				System.out.println("ID : "+res.getInt("id"));
+				System.out.println("FNAME : "+res.getString(2));
+				System.out.println("LNAME : "+res.getString(3));
+				System.out.println("GENDER : "+res.getString(4));
+				System.out.println("GMAIL : "+res.getString(5));
+				System.out.println("PASSWORD : "+res.getString(6));
+				System.out.println("PHONE No : "+res.getInt("phoneNo"));
+				System.out.println("------------------------------");
+			}
+			else
+			{
+				System.out.println("Id is not found");
 			}
 			
 		} catch (ClassNotFoundException |SQLException e) {
