@@ -5,9 +5,10 @@ import java.sql.*;
 public class FetchId {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			Statement s=c.createStatement();
 			ResultSet res=s.executeQuery("select * from user where id=1");
 			if (res.next())
@@ -26,6 +27,17 @@ public class FetchId {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 
 	}
