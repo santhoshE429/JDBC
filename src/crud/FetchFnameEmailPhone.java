@@ -5,9 +5,10 @@ import java.sql.*;
 public class FetchFnameEmailPhone {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			Statement s=c.createStatement();
 			ResultSet rs=s.executeQuery("select firstName,gmail,phoneNo from user");
 			while(rs.next())
@@ -19,6 +20,17 @@ public class FetchFnameEmailPhone {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
