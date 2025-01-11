@@ -3,6 +3,7 @@ import java.sql.*;
 public class Insert {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		
 		try {
 			//1. Load and register the driver -implicitly
@@ -10,7 +11,7 @@ public class Insert {
 			
 			//2.Establish Connection
 			
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root", "root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root", "root");
 			
 			
 			//3.Create Statement
@@ -27,6 +28,17 @@ public class Insert {
 			
 		} catch (ClassNotFoundException |SQLException e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
