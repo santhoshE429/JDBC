@@ -5,14 +5,14 @@ import java.sql.*;
 public class Delete {
 
 	public static void main(String[] args) {
-		
+		Connection c=null;
 		
 		try {
 			//1.load and register driver
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			//2.establish Connection
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			
 			//3.create statement
 			
@@ -24,6 +24,17 @@ public class Delete {
 
 		} catch (ClassNotFoundException |SQLException e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
