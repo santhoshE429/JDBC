@@ -3,14 +3,16 @@ package crud;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Asc {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			
 			Statement s=c.createStatement();
 			ResultSet res=s.executeQuery("select * from user order by  phoneNo asc" );
@@ -27,9 +29,22 @@ public class Asc {
 				System.out.println("PHONE No : "+res.getInt("phoneNo"));
 				System.out.println("------------------------------");
 			}
-			} catch (Exception e) {
+			
+			} catch (SQLException | ClassNotFoundException e) 
+			{
 			e.printStackTrace();
-			}	
-	}
+			}
+			finally
+			{
+				try 
+				{
+					if(c!=null)
+						c.close();
+				} catch (SQLException e) 
+				{
+					e.printStackTrace();
+				}
+			}
+	}		
 
 }
