@@ -6,12 +6,13 @@ import java.util.Scanner;
 public class Dynamic_select {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter id");
 		int id=sc.nextInt();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			PreparedStatement s=c.prepareStatement("select * from user where id=?");
 			s.setInt(1, id);
 			ResultSet res=s.executeQuery();
@@ -36,6 +37,17 @@ public class Dynamic_select {
 			
 		} catch (ClassNotFoundException |SQLException e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 
 	}
