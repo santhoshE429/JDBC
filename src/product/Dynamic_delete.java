@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class Dynamic_delete {
 
 	public static void main(String[] args) {
+		Connection  c=null;
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter Id:");
 		int id=sc.nextInt();
@@ -18,7 +19,7 @@ public class Dynamic_delete {
 	try {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
+		c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
 		PreparedStatement ps=c.prepareStatement("delete from product  where id=?");
 		ps.setInt(1, id);
 		
@@ -29,7 +30,18 @@ public class Dynamic_delete {
 	} catch (ClassNotFoundException  |SQLException e) {
 		e.printStackTrace();
 	}
-
+	finally
+	{
+		try 
+		{
+			if(c!=null)
+				c.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
+	}
+	
 
 }
