@@ -7,6 +7,7 @@ public class Dynamic_insert {
 
 	public static void main(String[] args) {
 			Scanner sc=new Scanner(System.in);
+			Connection c=null;
 			System.out.print("Enter Id:");
 			int id=sc.nextInt();
 			System.out.print("Enter product Name:");
@@ -24,7 +25,7 @@ public class Dynamic_insert {
 		try {
 	
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
 			PreparedStatement ps=c.prepareStatement("insert into product values(?,?,?,?,?,?,?)");
 			ps.setInt(1, id);
 			ps.setString(2, name);
@@ -38,6 +39,17 @@ public class Dynamic_insert {
 			System.out.println("date inserted suceessfully");
 		} catch (ClassNotFoundException  |SQLException e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 
 	}
