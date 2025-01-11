@@ -2,11 +2,13 @@ package crud;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class FIrst_step {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		try {
 			//1. Load and register the driver-Explicitly
 			java.sql.Driver d=new com.mysql.cj.jdbc.Driver();
@@ -15,7 +17,7 @@ public class FIrst_step {
 			
 			  
 			//2.Establish Connection
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root", "root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root", "root");
 		
 			//3.Create Statement
 			
@@ -30,7 +32,17 @@ public class FIrst_step {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
