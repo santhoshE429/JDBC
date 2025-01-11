@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class FetchBySal {
 
 	public static void main(String[] args) {
+		Connection c=null;
 		Scanner sc=new Scanner(System.in);
 		System.out.println("Enter starting phoneNo");
 		long start=sc.nextLong();
@@ -13,7 +14,7 @@ public class FetchBySal {
 		long end=sc.nextLong();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			
 			PreparedStatement ps=c.prepareStatement("select * from user where phoneNo between ? and ?");
 			ps.setLong(1, start);
@@ -31,6 +32,17 @@ public class FetchBySal {
 			}
 			} catch (Exception e) {
 			e.printStackTrace();
+		}
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 
 	}
