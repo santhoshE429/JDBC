@@ -15,11 +15,12 @@ public class Dynamic_update {
 		
 		System.out.print("Enter product price:");
 		double price=sc.nextDouble();
+		Connection c=null;
 		
 	try {
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
+		 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/product_db","root","root");
 		PreparedStatement ps=c.prepareStatement("update product set price=? where id=?");
 		ps.setInt(2, id);
 		
@@ -29,6 +30,17 @@ public class Dynamic_update {
 		System.out.println("date updated suceessfully");
 	} catch (ClassNotFoundException  |SQLException e) {
 		e.printStackTrace();
+	}
+	finally
+	{
+		try 
+		{
+			if(c!=null)
+				c.close();
+		} catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 
 	}
