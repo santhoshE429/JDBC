@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Dynamic_insert {
 
 	public static void main(String[] args) {
-		
+		Connection c=null;
 		Scanner sc=new Scanner(System.in);
 		System.out.print("Enter id:");
 		int id=sc.nextInt();
@@ -30,7 +30,7 @@ public class Dynamic_insert {
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
+			 c=DriverManager.getConnection("jdbc:mysql://localhost:3306/user_db","root","root");
 			
 //			PreparedStatement ps=c.prepareStatement("update user set gmail=?,phoneNo=? where id=?");
 //			PreparedStatement ps=c.prepareStatement("insert into user values(?,?,?,?,?,?,?)");
@@ -55,7 +55,17 @@ public class Dynamic_insert {
 		} catch (ClassNotFoundException |SQLException e) {
 			e.printStackTrace();
 		}
-
+		finally
+		{
+			try 
+			{
+				if(c!=null)
+					c.close();
+			} catch (SQLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
